@@ -47,6 +47,15 @@ console.log(typeof "x")
 - undefined
 
 The difference in meaning between undefined and null is an accident of JavaScript’s design, and it doesn’t matter most of the time.
+\
+When `null` or `undefined` occurs on either side of the operator, it produces true only if both sides are one of null or undefined.
+
+``` javascript
+console.log(null == undefined);
+// → true
+console.log(null == 0);
+// → false
+```
 
 # Automatic type conversion
 

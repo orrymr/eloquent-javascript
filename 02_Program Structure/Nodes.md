@@ -1,3 +1,4 @@
+A fragment of code that produces a value is called an expression. Every value that is written literally (such as 22 or "psychoanalysis") is an expression.
 _Statement_ is comprised of one or more _expressions_. \
 Recommendation to use semicolons at the end of statements (sometimes if you don't the two statements can join. Rules are complex).\
 
@@ -30,3 +31,9 @@ if (!Number.isNaN(theNumber)) {
               theNumber * theNumber);
 }
 ```
+
+# New Terms:
+
+- expression
+- statement
+- side effects

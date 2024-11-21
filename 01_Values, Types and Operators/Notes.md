@@ -1,6 +1,12 @@
+Values - chunks of bits that represent pieces of information. 
+Types - Every value has a type that determines its role (numbers, strings, Booleans, and undefined values)
+Operators - doing things with these values. Like multiplying them (if their type is number)
+
 # Numbers
 
-Javascript uses 64 bits to store a number.
+- Javascript uses 64 bits to store a number.
+- Precedence rules for mathematical operations
+- Special values: `Infinity`, `-Infinity` `NaN`
 
 # Strings
 
@@ -38,6 +44,24 @@ console.log(typeof 4.5)
 console.log(typeof "x")
 // → string
 ```
+# Boolean
+
+String comparison:
+```javascript
+console.log("Aardvark" < "Zoroaster")
+// → true
+```
+
+Only one number that's not equal to itself:
+
+```javascript
+console.log(NaN == NaN)
+// → false
+```
+
+# Logical operators
+
+`&& ||`
 
 # Empty Values
 
@@ -57,7 +81,7 @@ console.log(null == 0);
 // → false
 ```
 
-# Automatic type conversion
+# Automatic type conversion: type coercion
 
 ```javascript
 console.log(8 * null)
@@ -85,4 +109,19 @@ console.log(null || "user")
 // → user
 console.log("Agnes" || "user")
 // → Agnes
+```
+
+NB: The rules for converting strings and numbers to Boolean values state that 0, NaN, and the empty string ("") count as false, while all the other values count as true. That means 0 || -1 produces -1, and "" || "!?" yields "!?".
+
+short-circuit evaluation:  In the case of true || X, no matter what X is—even if it’s a piece of program that does something terrible—the result will be true, and X is never evaluated. The same goes for false && X, which is false and will ignore X.
+
+The ?? operator resembles || but returns the value on the right only if the one on the left is null or undefined, not if it is some other value that can be converted to false. Often, this is preferable to the behavior of ||.
+
+```javascript
+console.log(0 || 100);
+// → 100
+console.log(0 ?? 100);
+// → 0
+console.log(null ?? 100);
+// → 100
 ```

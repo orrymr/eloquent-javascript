@@ -1,10 +1,20 @@
-## Function return values
+## Just a binding
 
-A return keyword without an expression after it will cause the function to return undefined. \
-Functions that don’t have a return statement at all, such as makeNoise, similarly return undefined. \ 
+A function definition is just a binding:
+
+```javascript
+const square = function(x) {
+  return x * x;
+};
+```
+
+`return` without a value will cause the function to return `undefined`.
+Functions that don’t have a return statement at all similarly return undefined.
+
 
 ## Bindings and scopes
 
+Each binding has a scope, which is the part of the program in which the binding is visible. 
 For bindings defined outside of any function, block, or module (see Chapter 10), the scope is the whole program—you can refer to such bindings wherever you want. These are called global. \
 Inside -> local scope. \
 
@@ -53,10 +63,17 @@ Crazy, huh? Even though function was declared before.
 ```javascript
 const square = (x) => x*x;
 ```
+Using arrow functions, last statement is a return:
+
+```javascript
+console.log((() => 4)());
+```
 
 ## Call stack
 
 Every time a function is called, the current context is stored on top of this stack. When a function returns, it removes the top context from the stack and uses that context to continue execution.
+
+Storing this stack requires space in the computer’s memory. When the stack grows too big, the computer will fail with a message like “out of stack space” or “too much recursion”.
 
 ## Optional Arguments
 
@@ -90,15 +107,16 @@ A function that references bindings from local scopes around it is called a clos
 Thinking about programs like this takes some practice. A good mental model is to think of function values as containing both the code in their body and the environment in which they are created. When called, the function body sees the environment in which it was created, not the environment in which it is called.
 
 ```javascript
-function multByVal(val){
-    return (otherNum) => val * otherNum;
+function mult(factor){
+    return number => number * factor; 
 }
 
-multBy2 = multByVal(2);
-console.log(multBy2(5));
+twice = mult(2);
+
+console.log(twice(5));
 ```
 
-Closures are weird.
+In the previous example, multiplier is called and creates an environment in which its factor parameter is bound to 2. 
 
 ## Recursion
 

@@ -168,7 +168,8 @@ function arrayThing(...numbers) {
 arrayThing(4, 1, 9, -2);
 // [ 4, 1, 9, -2 ]
 
-arrayThing(...[1,2,3]);
+arrayThing(...[ 4, 1, 9, -2 ]);
+// [ 4, 1, 9, -2 ]
 ```
 
 # Math Object

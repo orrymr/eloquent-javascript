@@ -1,3 +1,6 @@
+Numbers, Booleans, and strings are the atoms.
+Objects allow us to group values.
+
 # Arrays
 
 ```javascript
@@ -38,7 +41,7 @@ Braces have two meanings in JavaScript. At the start of a statement, they begin 
 let kim = {name: "Kim"};
 kim.age = 88;
 console.log(kim.age);
-// → undefined
+//88
 ```
 
 ## Methods
@@ -72,8 +75,10 @@ console.log(objectA);
 # Mutability
 
  The types of values discussed in earlier chapters, such as numbers, strings, and Booleans, are all immutable.
+ Primitive values are immutable, though the variable that holds it may be reassigned another value.
  Objects work differently. You can change their properties, causing a single object value to have different content at different times.
-
+Object's properties and elements can be changed without reassigning a new value
+ 
  ```javascript
 let object1 = {value: 10};
 let object2 = object1;
@@ -103,7 +108,7 @@ score.visitors = 1;
 score = {visitors: 1, home: 1};
  ```
 
- Ruminate upon why this is the case.
+ Ruminate upon why this is the case: a const binding to an object can itself not be changed and will continue to point at the same object, the contents of that object might change. 
 
  When you compare objects with JavaScript’s == operator, it compares by identity: it will produce true only if both objects are precisely the same value. Comparing different objects will return false, even if they have identical properties. There is no “deep” comparison operation built into JavaScript that compares objects by contents, but it is possible to write it yourself.
 
@@ -112,6 +117,15 @@ score = {visitors: 1, home: 1};
  push(), pop() methods on array.
  The corresponding methods for adding and removing things at the start of an array are called unshift() and shift().
 
+# Strings and their properties
+
+- "coconuts".slice(4, 7) // nut
+- "three".indexOf("ee") // 3
+- "  okay \n ".trim() // "okay"
+- String(6).padStart(3, "0") // "006"
+- "Secretarybirds specialize in stomping".split(" ") // ["Secretarybirds", "specialize", "in", "stomping"]
+- join()
+- "LA".repeat(3) // LALALA
 
 ## Rest parameters
 
@@ -127,7 +141,15 @@ console.log(max(4, 1, 9, -2));
 // → 9
 ```
 
-The above turns `number` into an array.
+The above turns `numbers` into an array.
+
+```
+function max(...numbers) {
+	console.log(numbers);
+}
+max(4, 1, 9, -2);
+// [ 4, 1, 9, -2 ]
+```
 
 You can use a similar three-dot notation to call a function with an array of arguments.
 
@@ -138,6 +160,20 @@ console.log(max(...numbers));
 ```
 
 Spreads...
+
+```javascript
+function arrayThing(...numbers) {
+	console.log(numbers);
+}
+arrayThing(4, 1, 9, -2);
+// [ 4, 1, 9, -2 ]
+
+arrayThing(...[1,2,3]);
+```
+
+# Math Object
+
+Orry - continue reading from here
 
 # JSON
 

@@ -174,9 +174,29 @@ arrayThing(...[ 4, 1, 9, -2 ]);
 
 # Math Object
 
-Orry - continue reading from here
+`Math` object container to group related math functionality.
+`Math` provides a _namespace_; having too many global bindings pollutes namespace.
+
+# Destructuring
+
+```javascript
+function printLatLng([lat, lng]){
+    console.log(`Lat: ${lat} ; Lng: ${lng}`)
+}
+
+printLatLng([40, 41]);
+// Lat: 40 ; Lng: 41
+```
+
+# Optional Property Access
+
+`object?.property`.
 
 # JSON
+
+Objects and arrays hold addresses. So, in order to do things like save the values of objects, you gotta serialize.
+
+JavaScript gives us the functions JSON.stringify and JSON.parse
 
 Serialize objects.
 JSON looks similar to JavaScript’s way of writing arrays and objects, with a few restrictions. All property names have to be surrounded by double quotes, and only simple data expressions are allowed—no function calls, bindings, or anything that involves actual computation. Comments are not allowed in JSON.

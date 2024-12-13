@@ -115,6 +115,7 @@ console.log(Object.getPrototypeOf(killerRabbit) == Rabbit.prototype);
 // → true
 ```
 
+This is because Rabbit binds to a constructor, and constructors are functions.
 NB: you can only call the constructor by using the `new` keyword.
 
 So, `Rabbit()` itself is the actual constructor.

@@ -114,4 +114,35 @@ a.reduce((x, y) => x + y)
 
 The less abstract style (for loop) is faster (why?)
 
-## some
+## some()
+
+Discussion on `some()`, the higher order function
+
+Remember Unicode, the system that assigns a number to each character in written language, from Chapter 1.
+Remember also that Javascript uses 16 bits for strings, but that sometimes there are unicode characters whose code point will require more than 2^16 to represent?
+So, it uses 2 character positions:
+
+```javascript
+let horseShoe = "🐴👟";
+console.log(horseShoe.length);
+// → 4
+// → 4
+console.log(horseShoe[0]);
+// → (Invalid half-character)
+console.log(horseShoe.charCodeAt(0));
+// → 55357 (Code of the half-character)
+console.log(horseShoe.codePointAt(0));
+// → 128052 (Actual code for horse emoji)
+```
+
+How do we get character codes in a string?
+
+```javascript
+let roseDragon = "🌹🐉";
+for (let char of roseDragon) {
+  console.log(char);
+}
+// → 🌹
+// → 🐉
+```
+

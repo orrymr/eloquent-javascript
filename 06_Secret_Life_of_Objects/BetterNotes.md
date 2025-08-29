@@ -117,3 +117,23 @@ console.log(Object.getPrototypeOf(Particle) == Function.prototype); // true
 Particle is the constructor. In JavaScript, a class declaration creates a constructor function under the hood. The class Particle syntax is syntactic sugar for defining a constructor function and its associated prototype.
 `speed` and `position` are both instance properties, but they differ in how they are defined and initialized in the class.
 I don't understand the distinction.
+
+# Private Properties
+
+```javascript
+class SecretiveObject {
+  #getSecret() {
+    return "I ate all the plums";
+  }
+  interrogate() {
+    let shallISayIt = this.#getSecret();
+    return "never";
+  }
+}
+```
+
+# Overriding dervived properties
+
+```javascript
+
+```

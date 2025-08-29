@@ -1,10 +1,11 @@
-Abstract Data Type / Object Class - something that contains some code, but exposes a limited set of methods/properties.
+# Abstract Data Type / Object Class - something that contains some code, but exposes a limited set of methods/properties.
 
 - methods: properties that hold function values.
 
 ```javascript
 let whiteRabbit = {type: "white", speak};
 ```
+# Methods
 
 Where `speak` is a function.
 So, `speak` is a method of `whiteRabbit`.
@@ -15,11 +16,37 @@ Now, if you want to created `blackRabbit`
 let blackRabbit = {type: "black", speak};
 ```
 
+`this` behaves differently when defined with an arrow function, `=>` or a `function` keyword.
+In JavaScript, regular functions defined with the function keyword have their own this binding determined by how they are called, so they cannot directly access the this of their surrounding scope, unlike arrow functions which inherit it.
+
+# Prototypes
+
 Now, if you have many more methods than `speak`, than creating new objects this way is a freaking mission.
 
 Better if we can keep methods in a single place, rather than add to eah object individually.
 
 Enter, _prototypes_.
+
+Plain old objects created with {} notation are linked to an object called Object.prototype.
+
+```javascript
+let empty = {};
+console.log(empty.toString);
+// → function toString(){…}
+console.log(empty.toString());
+// → [object Object]
+```
+
+Functions derive from `Function.prototype` and arrays derive from `Array.prototype`
+
+```javascript
+console.log(Object.getPrototypeOf(Math.max) ==
+            Function.prototype);
+// → true
+console.log(Object.getPrototypeOf([]) == Array.prototype);
+// → true
+```
+
 
 One must create the prototypical rabbit, say a protoRabbit, from whence all other rabbits are created.
 All rabbits are created in the image of the protoRabbit.
@@ -44,114 +71,49 @@ blackRabbit.type = "black";
 blackRabbit.speak("I am fear and darkness");
 // → The black rabbit says 'I am fear and darkness'
 ```
+# Classes
 
-The protoRabbit is useful for defining properties for which all instances of that class share the same value.
-For example, all rabbits share the same speak method.
-But, their type property differs.
+A class defines the shape of a type of object—what methods and properties it has.
 
-This way of using prototypes is one way of defining common functionality.
-Thing is, all rabbits need to also have a `type` property, right?
-If you just forget to go `blackRabbit.type="black"`, then your blackRabbit won't have that property, and it could break code, down the line.
+- class keyword
+- constructor
 
-So, that's what you can use a `constructor` for: 
+class was only introduced in 2015 JS.
+
+## Functions: Prototype Property vs Actual Prototype.
+
+In JavaScript, there’s a clear distinction between a function’s prototype property and its actual prototype (the object it inherits from)
 
 ```javascript
-function makeRabbit(type) {
-  let rabbit = Object.create(protoRabbit);
-  rabbit.type = type;
-  return rabbit;
+function yes() {
+  console.log("yes");
 }
+
+console.log(yes.prototype);
+// {}
+console.log(Object.getPrototypeOf(yes));
+// [Function (anonymous)] Object
 ```
 
-In other words, the constructor makes sure that you:
-1. derive the new object from the correct prototype
-2. have the correct properties that instances of this class supposed to have (in this case, type)
+Now, this is important for inheritance.
+A constructor is just a function. So, it has a prototype property. This prototype property is not the prototype of the constructor function itself—it’s the object that will serve as the prototype for instances created by the constructor.
+The constructor function’s prototype property holds the prototype used for instances created through it.
 
-This is kind of a clunky thing to remember to do.
-So, JavaScript provides the `class` keyword.
-
-EG:
+## Example of class, prototype thing
 
 ```javascript
-class Rabbit {
-  constructor(type) {
-    this.type = type;
+class Particle {
+  speed = 0;
+  constructor(position) {
+    this.position = position;
   }
-  speak(line) {
-    console.log(`The ${this.type} rabbit says '${line}'`);
-  }
 }
+
+let a = new Particle("(1, 2)");
+console.log(typeof Particle); // function
+console.log(Object.getPrototypeOf(Particle) == Function.prototype); // true
 ```
 
-This code creates a binding called `Rabbit`. It holds:
-1. a function that runs the code in the constructor
-2. a prototype property that holds the `speak` method
-
-Woah, wtf does point 2 mean?
-Well, if you look at the Rabbit binding, it will have a `prototype` property. That `prototype` property will have
-a speak method:
-
-```javascript
-console.log(Rabbit.prototype.speak); // [Function: speak]
-console.log(Rabbit.prototype.speak()); // The undefined rabbit says 'undefined'
-```
-
-Interestingly, the `class` keyword was only introduced in 2015 Javascript. Prior to this, you'd just create the
-constructor manually.
-
-Now, watch how when you call the constructor, you have to specify the non-shared properties of the new instance:
-
-```javascript
-let killerRabbit = new Rabbit("killer");
-```
-
-Rabbit.prototype property holds the prototype used for creating new instances.
-However, the prototype of the actual constructor is a Function.prototype:
-
-```javascript
-console.log(Object.getPrototypeOf(Rabbit) == Function.prototype);
-// → true
-console.log(Object.getPrototypeOf(killerRabbit) == Rabbit.prototype);
-// → true
-```
-
-This is because Rabbit binds to a constructor, and constructors are functions.
-NB: you can only call the constructor by using the `new` keyword.
-
-So, `Rabbit()` itself is the actual constructor.
-
-```javascript
-> Rabbit()
-Uncaught TypeError: Class constructor Rabbit cannot be invoked without 'new'
-> new Rabbit("fluffy")
-Rabbit { type: 'fluffy' }
-```
-
-It is also possible to declare properties directly in the class declaration. 
-NB: Unlike methods, such properties are added to instance objects and not the prototype.
-
-```
-class Rabbit {
-    speed = 0;
-	constructor(type) {
-		this.type = type;
-	}
-	speak(line) {
-		console.log(`The ${this.type} rabbit says '${line}'`);
-	}
-}
-```
-
-then 
-
-```javascript
-let whiteRabbit = new Rabbit("white");
-> whiteRabbit
-Rabbit { speed: 50, type: 'white' }
-```
-
-Note how you don't see the speak property on whiteRabbit. That's because it's a method which is added to the prototype.
-
-```javascript
-Object.getPrototypeOf(whiteRabbit) == Rabbit.prototype;
-```
+Particle is the constructor. In JavaScript, a class declaration creates a constructor function under the hood. The class Particle syntax is syntactic sugar for defining a constructor function and its associated prototype.
+`speed` and `position` are both instance properties, but they differ in how they are defined and initialized in the class.
+I don't understand the distinction.

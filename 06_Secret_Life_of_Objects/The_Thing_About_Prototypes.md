@@ -44,6 +44,16 @@ Dog.prototype.numberOfFeet = 4;
 console.log(Dog.prototype); // this now outputs "{ numberOfFeet: 4 }", even though I added it afterwards
 ```
 
+# Think about it this way.
+
+```javascript
+function Dog(){
+}
+
+let fluffy = new Dog(); // fluffy has internal [[Prototype]] set to Dog.prototype.
+console.log(Object.getPrototypeOf(fluffy) == Dog.prototype); // true
+```
+
 # Array.prototype, Object.prototype
 
 This is why:

@@ -44,11 +44,7 @@ Dog.prototype.numberOfFeet = 4;
 console.log(Dog.prototype); // this now outputs "{ numberOfFeet: 4 }", even though I added it afterwards
 ```
 
-
-
-
-
-So, `new` is a magical keyword
+# Array.prototype, Object.prototype
 
 This is why:
 
@@ -66,4 +62,13 @@ let d = new Array();
 
 console.log(Object.getPrototypeOf(c) == Object.prototype); // true
 console.log(Object.getPrototypeOf(d) == Array.prototype);  // true
+```
+
+# Doing Crazy shit
+
+```javascript
+Object.prototype.orry = () => console.log("hi orry");
+console.log(Object.prototype); // [Object: null prototype] { orry: [Function (anonymous)] }
+let obj = {};
+obj.orry(); // hi orry
 ```
